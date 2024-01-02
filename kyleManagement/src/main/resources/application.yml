@@ -1,0 +1,14 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    auto-commit: true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connectionTimeout: 30000
+      idleTimeout: 600000
+      maxLifetime: 180000
+  application:
+    name: Kyle Management
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yml

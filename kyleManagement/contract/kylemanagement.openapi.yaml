@@ -1,0 +1,119 @@
+---
+openapi: 3.0.3
+info:
+  title: Kyle management API
+  description: Internal API
+  contact:
+    name: Eddy Amegandji
+    email: eddysamegandji@gmail.com
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+    description: local development
+tags:
+  - name: "ticket-resource"
+paths:
+  /tickets:
+    get:
+      summary: "Get all tickets"
+      tags: [ "ticket-resource" ]
+      operationId: listTickets
+      responses:
+        '200':
+          description: "List retrieved successfully"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TicketApi'
+        '401':
+          $ref: '#/components/responses/401'
+
+components:
+  responses:
+    '401':
+      description: "Unauthorized"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    '403':
+      description: "Forbidden"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+  schemas:
+    ApiError:
+      type: object
+      properties:
+        status:
+          type: integer
+        error:
+          type: string
+        path:
+          type: string
+        timestamp:
+          type: number
+          format: double
+        message:
+          type: string
+
+    UserApi:
+      type: object
+      properties:
+        id:
+          type: integer
+        login:
+          type: string
+        lastName:
+          type: string
+        firstName:
+          type: string
+        fullName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        firstConnectionDate:
+          type: string
+          format: date-time
+        lastConnectionDate:
+          type: string
+          format: date-time
+        creationDate:
+          type: string
+          format: date-time
+        creationUserId:
+          type: integer
+        deleteDate:
+          type: string
+          format: date-time
+        deleteUserId:
+          type: integer
+        active:
+          type: boolean
+          default: true
+        skills:
+          type: object
+          properties:
+            id:
+              type: integer
+
+    TicketApi:
+      type: object
+      properties:
+        id:
+          type: integer
+        creationDate:
+          type: string
+          format: date-time
+        ticketType:
+          type: string
+          enum:
+            - RENTAL
+            - SALE
+

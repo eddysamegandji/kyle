@@ -1,0 +1,543 @@
+databaseChangeLog:
+  - changeSet:
+      id: Eddy
+      author: Eddy
+      context: kyle_db
+      changes:
+        - createTable:
+            tableName: customer
+            columns:
+              - column:
+                  name: customer_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: first_name
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: last_name
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: full_name
+                  type: varchar(256)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: address1
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: address2
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: zip_code
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: city
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: country
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: birth_city
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: birth_department
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: birth_name
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: birth_date
+                  type: datetime
+                  constraints:
+                    nullable: true
+              - column:
+                  name: title
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: contact_search
+                  type: varchar(80)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: company_name
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: company_position
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: customer_ref
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: kbis
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: fax
+                  type: varchar(40)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: home_phone
+                  type: varchar(40)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: mobile_phone
+                  type: varchar(40)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: work_phone
+                  type: varchar(40)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: other_phone
+                  type: varchar(40)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: email_address
+                  type: varchar(256)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: email_address2
+                  type: varchar(256)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: email_name
+                  type: varchar(256)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: comments
+                  type: varchar(256)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: creation_date
+                  type: datetime
+                  constraints:
+                    nullable: true
+              - column:
+                  name: creation_user_id
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_modified_date
+                  type: datetime
+                  constraints:
+                    nullable: true
+              - column:
+                  name: update_user_id
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: delete_date
+                  type: datetime
+                  constraints:
+                    nullable: true
+              - column:
+                  name: delete_user_id
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: vip
+                  type: smallint
+                  defaultValue: 0
+                  constraints:
+                    nullable: true
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: login
+                  type: varchar(45)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: last_name
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: password
+                  type: varchar(264)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password_last_changed_date
+                  type: datetime
+                  constraints:
+                    nullable: true
+              - column:
+                  name: email
+                  type: varchar(256)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: phone
+                  type: varchar(40)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: rights
+                  type: varchar(256)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: locale
+                  type: varchar(10)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: first_connection_date
+                  type: datetime
+                  constraints:
+                    nullable: true
+              - column:
+                  name: last_connection_date
+                  type: datetime
+                  constraints:
+                    nullable: true
+              - column:
+                  name: creation_date
+                  type: datetime
+                  constraints:
+                    nullable: true
+              - column:
+                  name: creation_user_id
+                  type: integer
+                  constraints:
+                    nullable: true
+              - column:
+                  name: delete_date
+                  type: datetime
+                  constraints:
+                    nullable: true
+              - column:
+                  name: delete_user_id
+                  type: integer
+                  constraints:
+                    nullable: true
+              - column:
+                  name: active
+                  type: smallint
+                  defaultValue: 0
+                  constraints:
+                    nullable: true
+        - createTable:
+            tableName: usergroup
+            columns:
+              - column:
+                  name: usergroup_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(256)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: description
+                  type: varchar(256)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: site_name
+                  type: varchar(256)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: display_order
+                  type: integer
+                  constraints:
+                    nullable: true
+              - column:
+                  name: creation_date
+                  type: datetime
+                  constraints:
+                    nullable: true
+              - column:
+                  name: creation_user_id
+                  type: integer
+                  constraints:
+                    nullable: true
+              - column:
+                  name: delete_date
+                  type: datetime
+                  constraints:
+                    nullable: true
+              - column:
+                  name: delete_user_id
+                  type: integer
+                  constraints:
+                    nullable: true
+              - column:
+                  name: number_of_users
+                  type: integer
+                  constraints:
+                    nullable: true
+              - column:
+                  name: is_available_on_ticket_creation
+                  type: smallint
+                  defaultValue: 0
+                  constraints:
+                    nullable: true
+              - column:
+                  name: is_available_on_ticket_treatment
+                  type: smallint
+                  defaultValue: 0
+                  constraints:
+                    nullable: true
+              - column:
+                  name: nb_tickets
+                  type: integer
+                  constraints:
+                    nullable: true
+        - createTable:
+            tableName: userlog
+            columns:
+              - column:
+                  name: userlog_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fkUserIdUL
+                    references: user(user_id)
+              - column:
+                  name: service_name
+                  type: varchar(256)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: params
+                  type: longtext
+                  constraints:
+                    nullable: true
+              - column:
+                  name: log_message
+                  type: varchar(256)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: date
+                  type: datetime
+                  constraints:
+                    nullable: true
+        - createTable:
+            tableName: param
+            columns:
+              - column:
+                  name: param_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: code
+                  type: varchar(100)
+                  constraints:
+                    unique: true
+              - column:
+                  name: value
+                  type: varchar(256)
+                  constraints:
+                    nullable: true
+
+        - createTable:
+            tableName: skill
+            columns:
+              - column:
+                  name: skill_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(256)
+                  constraints:
+                    nullable: true
+
+        - createTable:
+            tableName: userskillrelation
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fkUserIdUS
+                    references: user(user_id)
+              - column:
+                  name: skill_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fkSkillId
+                    references: skill(skill_id)
+
+        - createTable:
+            tableName: usergrouprelation
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fkUserIdUG
+                    references: user(user_id)
+              - column:
+                  name: usergroup_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fkUserGroupId
+                    references: usergroup(usergroup_id)
+
+        - createTable:
+            tableName: ticket
+            columns:
+              - column:
+                  name: ticket_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: creation_user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fkCreationUserIdTK
+                    references: user(user_id)
+              - column:
+                  name: creation_date
+                  type: datetime
+                  constraints:
+                    nullable: true
+              - column:
+                  name: last_modification_date
+                  type: datetime
+                  constraints:
+                    nullable: true
+              - column:
+                  name: closing_date
+                  type: datetime
+                  constraints:
+                    nullable: true
+              - column:
+                  name: initial_delay_date
+                  type: datetime
+                  constraints:
+                    nullable: true
+              - column:
+                  name: new_delay_date
+                  type: datetime
+                  constraints:
+                    nullable: true
+              - column:
+                  name: ticket_type
+                  type: varchar(256)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: ticket_status
+                  type: varchar(256)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: creation_summary
+                  type: varchar(256)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: assignee_user_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fkAssigneeUserIdTK
+                    references: user(user_id)
+                    nullable: true
+              - column:
+                  name: assign_date
+                  type: datetime
+                  constraints:
+                    nullable: true
+              - column:
+                  name: skill_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fkSkillIdTK
+                    references: skill(skill_id)
+                    nullable: true
+              - column:
+                  name: usergroup_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fkUserGroupIdTK
+                    references: usergroup(usergroup_id)
+                    nullable: true
+              - column:
+                  name: customer_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fkCustomerIdTK
+                    references: customer(customer_id)
+                    nullable: true

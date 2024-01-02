@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: Eddy
+      author: Eddy
+      changes:
+        - insert:
+            tableName: param
+            columns:
+              - column:
+                  name: param_id
+                  value: null
+              - column:
+                  name: code
+                  value: "ASPECT_REGEX"
+              - column:
+                  name: value
+                  value: "password.*|authToken.*"
+        - insert:
+            tableName: param
+            columns:
+              - column:
+                  name: param_id
+                  value: null
+              - column:
+                  name: code
+                  value: "MYSQL_CRYPTO_KEY"
+              - column:
+                  name: value
+                  value: "o/VgV33FcjxFZm/acfDrGM63N4nrOqZl"

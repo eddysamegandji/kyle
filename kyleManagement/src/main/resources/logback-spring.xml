@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <springProperty name="LOGS" source="logging.file.path" defaultValue="./logs" />
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <!-- Previous pattern -->
+            <!--      <Pattern>-->
+            <!--        %d{ISO8601} %highlight(%-5level) [%t] %C{1.}: %msg%n%throwable-->
+            <!--      </Pattern>-->
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSSZZ}|%5p|%t|%X{kyleClient}|%X{oauthClient}|%X{threadUuid}|%X{uri}|%X{userName}|%C.%M|%m%n</Pattern>
+        </layout>
+    </appender>
+
+    <appender name="file"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/kyle-management.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!-- Previous pattern -->
+            <!--      <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>-->
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSSZZ}|%5p|%t|%X{kyleClient}|%X{oauthClient}|%X{threadUuid}|%X{uri}|%X{userName}|%C.%M|%m%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/archived/kyle-management-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>60</maxHistory>
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="com.delivery" level="DEBUG" />
+
+    <logger name="springfox.documentation" level="WARN" />
+    <logger name="org.opensaml" level="WARN" />
+
+    <logger name="org.springframework" level="WARN" />
+
+    <!--     In order to display the hibernate database queries, you can uncomment this -->
+    <!--      <logger name="org.hibernate.SQL" level="DEBUG" />-->
+    <!--      <logger name="org.hibernate.type" level="TRACE" />-->
+
+    <root level="WARN">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+    </root>
+
+</configuration>
