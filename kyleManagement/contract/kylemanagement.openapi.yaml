@@ -30,6 +30,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/CustomerApi'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
 
     post:
       summary: "Create a new customer"
@@ -50,6 +54,89 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomerApi'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+
+  /customers/{id}:
+    get:
+      summary: "Retrieve details on customer"
+      tags: [ "customer-resource" ]
+      operationId: getCustomer
+      parameters:
+        - name: id
+          description: "id of the customer."
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: "A detailed customer"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerApi'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+
+    put:
+      summary: "Edit customer"
+      tags: [ "customer-resource" ]
+      operationId: editCustomer
+      security:
+        - basicAuth: [ ]
+      parameters:
+        - name: id
+          description: "The id of the customer."
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerApi'
+      responses:
+        '200':
+          description: "A detailed customer"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerApi'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+
+    delete:
+      summary: "Delete customer"
+      tags: [ "customer-resource" ]
+      operationId: deleteCustomer
+      parameters:
+        - name: id
+          description: "id of the customer."
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: "Customer was deleted"
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
 
 components:
   responses:
@@ -61,6 +148,12 @@ components:
             $ref: '#/components/schemas/ApiError'
     '403':
       description: "Forbidden"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    '404':
+      description: "Not found"
       content:
         application/json:
           schema:
@@ -128,6 +221,7 @@ components:
       properties:
         customerId:
           type: integer
+          format: int64
         firstName:
           type: string
         lastName:

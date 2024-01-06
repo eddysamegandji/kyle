@@ -7,6 +7,7 @@ import com.kylemanagement.model.User;
 import com.kylemanagement.repository.CustomerRepository;
 import com.kylemanagement.service.CustomerService;
 import com.kylemanagement.service.SecurityContextService;
+import java.time.Instant;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,12 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerApi saveCustomer(CustomerApi customerApi) {
         Customer customer = customerMapper.toCustomer(customerApi);
         User loggedUser = securityContextService.getLoggedUser();
-        customer.setCreationUserId(loggedUser.getUserId());
+        if (customer.getCustomerId() == null) {
+            customer.setCreationUserId(loggedUser.getUserId());
+            customer.setCreationDate(Instant.now());
+        }
+        customer.setLastModifiedDate(Instant.now());
+        customer.setUpdateUserId(loggedUser.getUserId());
         return customerMapper.toCustomerApi(customerRepository.save(customer));
     }
 
@@ -31,5 +37,17 @@ public class CustomerServiceImpl implements CustomerService {
     public List<CustomerApi> getCustomers() {
         return customerRepository.findAll().stream()
                 .map(customerMapper::toCustomerApi).toList();
+    }
+
+    @Override
+    public CustomerApi findCustomerById(Long id) {
+       return customerRepository.findById(id)
+               .map(customerMapper::toCustomerApi)
+               .orElse(null);
+    }
+
+    @Override
+    public void deleteCustomerById(Long id) {
+        customerRepository.deleteById(id);
     }
 }

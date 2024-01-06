@@ -7,4 +7,6 @@ public interface CustomerService {
 
     CustomerApi saveCustomer(CustomerApi customerApi);
     List<CustomerApi> getCustomers();
+    CustomerApi findCustomerById(Long id);
+    void deleteCustomerById(Long id);
 }

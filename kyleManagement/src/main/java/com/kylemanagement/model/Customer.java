@@ -67,9 +67,9 @@ public class Customer {
     private Instant creationDate;
     private Long creationUserId;
     private Instant lastModifiedDate;
-    private Integer updateUserId;
+    private Long updateUserId;
     private Instant deleteDate;
-    private Integer deleteUserId;
+    private Long deleteUserId;
     private Boolean vip;
 
 }
