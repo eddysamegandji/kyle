@@ -5,7 +5,6 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "skill")
 public class Skill {
 
     @Id

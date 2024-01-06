@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Data
-@Table(name = "user")
 public class User implements UserDetails {
 
     @Id
@@ -41,10 +40,10 @@ public class User implements UserDetails {
     private Instant deleteDate;
     private Integer deleteUserId;
     private boolean active = true;
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "userskillrelation", joinColumns = {
-            @JoinColumn(name = "userId")}, inverseJoinColumns = {@JoinColumn(name = "skillId")})
-    private List<Skill> skills = new ArrayList<>();
+//    @OneToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name = "userskillrelation", joinColumns = {
+//            @JoinColumn(name = "userId")}, inverseJoinColumns = {@JoinColumn(name = "skillId")})
+//    private List<Skill> skills = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

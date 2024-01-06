@@ -8,7 +8,6 @@ import org.hibernate.annotations.Formula;
 
 @Entity
 @Data
-@Table(name = "customer")
 public class Customer {
 
     @Id
@@ -66,7 +65,7 @@ public class Customer {
     private String emailName;
     private String comments;
     private Instant creationDate;
-    private Integer creationUserId;
+    private Long creationUserId;
     private Instant lastModifiedDate;
     private Integer updateUserId;
     private Instant deleteDate;

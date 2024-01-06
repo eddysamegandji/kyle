@@ -12,13 +12,15 @@ servers:
   - url: http://localhost:8080
     description: local development
 tags:
-  - name: "ticket-resource"
+  - name: "customer-resource"
 paths:
-  /tickets:
+  /customers:
     get:
-      summary: "Get all tickets"
-      tags: [ "ticket-resource" ]
-      operationId: listTickets
+      summary: "Retrieve all the customers"
+      tags: ["customer-resource"]
+      operationId: getCustomers
+      security:
+        - basicAuth: []
       responses:
         '200':
           description: "List retrieved successfully"
@@ -27,9 +29,27 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/TicketApi'
-        '401':
-          $ref: '#/components/responses/401'
+                  $ref: '#/components/schemas/CustomerApi'
+
+    post:
+      summary: "Create a new customer"
+      tags: ["customer-resource"]
+      operationId: createCustomer
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerApi'
+      responses:
+        '200':
+          description: "A detailed customer"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerApi'
 
 components:
   responses:
@@ -97,23 +117,48 @@ components:
         active:
           type: boolean
           default: true
-        skills:
-          type: object
-          properties:
-            id:
-              type: integer
+#        skills:
+#          type: object
+#          properties:
+#            id:
+#              type: integer
 
-    TicketApi:
+    CustomerApi:
       type: object
       properties:
-        id:
+        customerId:
           type: integer
-        creationDate:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        fullName:
+          type: string
+        birthDate:
           type: string
           format: date-time
-        ticketType:
+        birthCity:
           type: string
-          enum:
-            - RENTAL
-            - SALE
+        birthDepartment:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        zipCode:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        mobilePhone:
+          type: string
+        emailAddress:
+          type: string
+        companyName:
+          type: string
+        companyPosition:
+          type: string
+        workPhone:
+          type: string
 

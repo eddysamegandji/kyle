@@ -1,6 +1,6 @@
 package com.kylemanagement.config.security;
 
-import com.kylemanagement.dao.UserDao;
+import com.kylemanagement.repository.UserRepository;
 import com.kylemanagement.model.User;
 import jakarta.annotation.Resource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,11 +17,11 @@ import org.springframework.util.ObjectUtils;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Resource
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User findUser =  userDao.findUserByLogin(username);
+        User findUser =  userRepository.findUserByLogin(username);
         if (!ObjectUtils.isEmpty(findUser)) {
             Authentication authentication= new UsernamePasswordAuthenticationToken(findUser.getLogin(), findUser.getPassword(), findUser.getAuthorities()) ;
             SecurityContextHolder.getContext().setAuthentication(authentication);

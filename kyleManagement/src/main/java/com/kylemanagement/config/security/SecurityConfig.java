@@ -44,7 +44,7 @@ public class SecurityConfig {
 //        setMaxSessionToOnePerUserDiscardingOldOnes(http, sessionRegistry);
         configureExpressionUrlAuthorization(http);
         http.formLogin(formLogin -> formLogin
-                .defaultSuccessUrl("http://localhost:8080/tickets"));
+                .defaultSuccessUrl("http://localhost:8080/"));
         http.userDetailsService(userDetailService);
         return http.build();
     }
