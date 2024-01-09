@@ -30,6 +30,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/CustomerApi'
+        '204':
+          $ref: '#/components/responses/204'
         '401':
           $ref: '#/components/responses/401'
         '403':
@@ -79,6 +81,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomerApi'
+        '204':
+          $ref: '#/components/responses/204'
         '403':
           $ref: '#/components/responses/403'
         '404':
@@ -140,6 +144,12 @@ paths:
 
 components:
   responses:
+    '204':
+      description: "No content"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
     '401':
       description: "Unauthorized"
       content:

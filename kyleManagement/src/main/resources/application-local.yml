@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/kyle_db
-    username: admin
-    password: root
+    username: ilyana
+    password: ilyana
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:

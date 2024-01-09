@@ -5,6 +5,7 @@ target/
 !**/src/test/**/target/
 /logs/
 kyleManagement/src/main/resources/application-local.yml
+kyleManagement/.gitignore
 
 ### STS ###
 .apt_generated
@@ -20,6 +21,7 @@ kyleManagement/src/main/resources/application-local.yml
 *.iws
 *.iml
 *.ipr
+**/*.iml
 
 ### NetBeans ###
 /nbproject/private/

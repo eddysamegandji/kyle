@@ -2,26 +2,30 @@ package com.kylemanagement.model;
 
 import jakarta.persistence.*;
 import java.time.Instant;
-import java.util.Calendar;
 import lombok.Data;
 
 @Entity
+@Table(name = "usergroup")
 @Data
-public class Skill {
+public class UserGroup {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long skillId;
+    private Long userGroupId;
     private String name;
+    private String siteName;
     private Instant creationDate;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "creationUserId")
     private User creationUserId;
+    private Instant deleteDate;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "deleteUserId")
+    private User deleteUserId;
     @Transient
     private Integer numberOfUsers;
     @Transient
-    private Integer numberOfTickets;
-    private boolean active = true;
-
-
+    private Integer nbOpenedTickets;
+    @Transient
+    private Integer nbTickets;
 }

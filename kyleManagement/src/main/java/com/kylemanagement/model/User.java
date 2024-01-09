@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.List;
 import lombok.Data;
 import org.hibernate.annotations.Formula;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,14 +25,12 @@ public class User implements UserDetails {
     private String login;
     private String lastName;
     private String firstName;
-
     @Formula(value = "concat(coalesce(last_name, ''), ' ', coalesce(first_name, ''))")
     private String userFullName;
     private String password;
     private Instant passwordLastChangedDate;
     private String email;
     private String phone;
-
     private String rights;
     private String locale;
     private LocalDateTime firstConnectionDate;
@@ -40,10 +40,14 @@ public class User implements UserDetails {
     private Instant deleteDate;
     private Integer deleteUserId;
     private boolean active = true;
-//    @OneToMany(fetch = FetchType.EAGER)
-//    @JoinTable(name = "userskillrelation", joinColumns = {
-//            @JoinColumn(name = "userId")}, inverseJoinColumns = {@JoinColumn(name = "skillId")})
-//    private List<Skill> skills = new ArrayList<>();
+    @OneToMany
+    @JoinTable(name = "UserGroupRelation", joinColumns = {
+            @JoinColumn(name = "userId")}, inverseJoinColumns = {@JoinColumn(name = "userGroupId")})
+    private List<UserGroup> groups = new ArrayList<>();
+    @OneToMany
+    @JoinTable(name = "UserSkillRelation", joinColumns = {
+            @JoinColumn(name = "userId")}, inverseJoinColumns = {@JoinColumn(name = "skillId")})
+    private List<Skill> skills = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
