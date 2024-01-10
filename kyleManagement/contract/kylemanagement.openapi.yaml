@@ -19,8 +19,8 @@ paths:
       summary: "Retrieve all the customers"
       tags: ["customer-resource"]
       operationId: getCustomers
-      security:
-        - basicAuth: []
+#      security:
+#        - basicAuth: []
       responses:
         '200':
           description: "List retrieved successfully"
@@ -41,8 +41,8 @@ paths:
       summary: "Create a new customer"
       tags: ["customer-resource"]
       operationId: createCustomer
-      security:
-        - basicAuth: []
+#      security:
+#        - basicAuth: []
       requestBody:
         required: true
         content:
@@ -92,8 +92,8 @@ paths:
       summary: "Edit customer"
       tags: [ "customer-resource" ]
       operationId: editCustomer
-      security:
-        - basicAuth: [ ]
+#      security:
+#        - basicAuth: [ ]
       parameters:
         - name: id
           description: "The id of the customer."

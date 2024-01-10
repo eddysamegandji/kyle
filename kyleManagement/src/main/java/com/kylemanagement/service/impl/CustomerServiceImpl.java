@@ -23,13 +23,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerApi saveCustomer(CustomerApi customerApi) {
         Customer customer = customerMapper.toCustomer(customerApi);
-        User loggedUser = securityContextService.getLoggedUser();
+//        User loggedUser = securityContextService.getLoggedUser();
         if (customer.getCustomerId() == null) {
-            customer.setCreationUserId(loggedUser.getUserId());
+            customer.setCreationUserId(1l);
             customer.setCreationDate(Instant.now());
         }
         customer.setLastModifiedDate(Instant.now());
-        customer.setUpdateUserId(loggedUser.getUserId());
+        customer.setUpdateUserId(1l);
         return customerMapper.toCustomerApi(customerRepository.save(customer));
     }
 
