@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/kyle_db
+    url: jdbc:mysql://localhost:3306/kyle_db?createDatabaseIfNotExist=true
     username: ilyana
     password: ilyana
     driver-class-name: com.mysql.cj.jdbc.Driver

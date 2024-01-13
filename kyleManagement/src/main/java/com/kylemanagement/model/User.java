@@ -51,7 +51,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList(Arrays.asList("ADMIN", "USER"));
+        return AuthorityUtils.createAuthorityList(List.of(rights));
     }
 
     @Override

@@ -13,6 +13,7 @@ servers:
     description: local development
 tags:
   - name: "customer-resource"
+  - name: "auth-resource"
 paths:
   /customers:
     get:
@@ -142,6 +143,29 @@ paths:
         '404':
           $ref: '#/components/responses/404'
 
+  /login:
+    post:
+      summary: "Login"
+      tags: ["auth-resource"]
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoginApi'
+      responses:
+        '200':
+          description: "Login successful"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponseApi'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+
 components:
   responses:
     '204':
@@ -264,5 +288,26 @@ components:
         companyPosition:
           type: string
         workPhone:
+          type: string
+
+    LoginApi:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+
+    LoginResponseApi:
+      type: object
+      properties:
+        isAuthenticated:
+          type: boolean
+          default: false
+        accessToken:
+          type: string
+        username:
+          type: string
+        roles:
           type: string
 
