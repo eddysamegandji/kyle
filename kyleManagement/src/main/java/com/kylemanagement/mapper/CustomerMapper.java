@@ -29,6 +29,10 @@ public interface CustomerMapper {
     @Mapping(target="companyName", source="companyName")
     @Mapping(target="companyPosition", source="companyPosition")
     @Mapping(target="workPhone", source="workPhone")
+    @Mapping(target="kbis", source="kbis")
+    @Mapping(target="fax", source="fax")
+    @Mapping(target="emailAddress2", source="emailAddress2")
+    @Mapping(target="title", source="title")
     CustomerApi toCustomerApi(Customer customer);
 
     @InheritInverseConfiguration

@@ -51,7 +51,7 @@ paths:
             schema:
               $ref: '#/components/schemas/CustomerApi'
       responses:
-        '200':
+        '201':
           description: "A detailed customer"
           content:
             application/json:
@@ -256,6 +256,8 @@ components:
         customerId:
           type: integer
           format: int64
+        title:
+          type: string
         firstName:
           type: string
         lastName:
@@ -283,12 +285,20 @@ components:
           type: string
         emailAddress:
           type: string
+        emailAddress2:
+          type: string
         companyName:
           type: string
         companyPosition:
           type: string
         workPhone:
           type: string
+        kbis:
+          type: string
+        fax:
+          type: string
+        vip:
+          type: boolean
 
     LoginApi:
       type: object

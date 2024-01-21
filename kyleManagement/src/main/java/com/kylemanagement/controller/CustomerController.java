@@ -6,13 +6,11 @@ import com.api.model.CustomerApi;
 import com.kylemanagement.service.CustomerService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.http.ResponseEntity.badRequest;
-import static org.springframework.http.ResponseEntity.noContent;
-import static org.springframework.http.ResponseEntity.notFound;
-import static org.springframework.http.ResponseEntity.ok;
+import static org.springframework.http.ResponseEntity.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,7 +22,7 @@ public class CustomerController implements CustomerResourceApi {
     public ResponseEntity<CustomerApi> createCustomer(CustomerApi customerApi) {
         CustomerApi savedCustomer = customerService.saveCustomer(customerApi);
         if (savedCustomer != null)
-            return ok(savedCustomer);
+            return new ResponseEntity<>(savedCustomer, HttpStatus.CREATED);
         return badRequest().build();
     }
 

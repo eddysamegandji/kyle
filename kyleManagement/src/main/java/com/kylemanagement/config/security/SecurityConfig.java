@@ -87,7 +87,7 @@ public class SecurityConfig {
     private void configureExpressionUrlAuthorization(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(c -> c
                 .requestMatchers("/login").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
         );
     }
     private void setMaxSessionToOnePerUserDiscardingOldOnes(HttpSecurity http, SessionRegistry sessionRegistry) throws Exception {
