@@ -316,6 +316,8 @@ components:
           default: false
         accessToken:
           type: string
+        refreshToken:
+          type: string
         username:
           type: string
         roles:
