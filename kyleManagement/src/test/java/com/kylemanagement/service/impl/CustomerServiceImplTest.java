@@ -1,6 +1,5 @@
 package com.kylemanagement.service.impl;
 
-import com.api.model.CustomerApi;
 import com.kylemanagement.service.CustomerService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

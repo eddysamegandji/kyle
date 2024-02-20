@@ -16,7 +16,7 @@ public class Skill {
     private Instant creationDate;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "creationUserId")
-    private User creationUserId;
+    private User creationUser;
     @Transient
     private Integer numberOfUsers;
     @Transient

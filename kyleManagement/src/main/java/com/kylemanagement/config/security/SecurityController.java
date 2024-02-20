@@ -1,7 +1,7 @@
 package com.kylemanagement.config.security;
 
 import com.api.handler.AuthResourceApi;
-import com.api.model.LoginResponseApi;
+import com.api.model.LoginResponseDto;
 import jakarta.annotation.Resource;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +35,7 @@ public class SecurityController implements AuthResourceApi {
     }
 
     @Override
-    public ResponseEntity<LoginResponseApi> login(String username, String password) {
+    public ResponseEntity<LoginResponseDto> login(String username, String password) {
         try {
             authenticate(username, password);
         } catch (Exception e) {
@@ -47,7 +47,7 @@ public class SecurityController implements AuthResourceApi {
         final String token = jwtTokenUtil.generateToken(userDetails);
         final String refreshToken = jwtTokenUtil.generateRefreshToken(userDetails);
 
-        LoginResponseApi loginResponseApi = new LoginResponseApi();
+        LoginResponseDto loginResponseApi = new LoginResponseDto();
         loginResponseApi.setIsAuthenticated(true);
         loginResponseApi.setAccessToken(token);
         loginResponseApi.setRefreshToken(refreshToken);

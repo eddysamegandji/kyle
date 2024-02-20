@@ -2,17 +2,18 @@ package com.kylemanagement.enums.ticket;
 
 public enum TicketStatusEnum {
 
-    TODO(1),
-    INPROGRESS(2),
-    RESERVED(3),
-    TOBEVALIDATED (4),
-    COMPLETED (5),
-    CLOSED(6),
-    CANCELLED(7);
+    TODO (1),
+    RESERVED (2),
+    INPROGRESS (3),
+    PENDING (4),
+    TOBEVALIDATED (5),
+    COMPLETED (6),
+    CANCELED (7),
+    START (8);
 
-    private final int ticketStatusId;
+    private final int id;
 
-    TicketStatusEnum(int ticketStatusId) {
-        this.ticketStatusId = ticketStatusId;
+    TicketStatusEnum(int id) {
+        this.id = id;
     }
 }

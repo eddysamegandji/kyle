@@ -16,6 +16,7 @@ public class TicketTypology {
     private Long ticketTypologyId;
     @NaturalId
     private String name;
+    private Boolean active;
     @ManyToOne
     @JoinColumn(name = "skillId")
     private Skill skill;

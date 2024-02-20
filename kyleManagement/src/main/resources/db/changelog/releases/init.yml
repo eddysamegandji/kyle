@@ -5,3 +5,6 @@ databaseChangeLog:
   - include:
       file: releases-1/data/init_data.yml
       relativeToChangelogFile: true
+  - includeAll:
+      path: releases-2/
+      relativeToChangelogFile: true
