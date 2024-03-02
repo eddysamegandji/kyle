@@ -2,8 +2,6 @@ package com.kylemanagement.controller;
 
 import com.api.handler.TicketResourceApi;
 import com.api.model.TicketDto;
-import com.kylemanagement.mapper.TicketMapper;
-import com.kylemanagement.model.Ticket;
 import com.kylemanagement.service.TicketService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -18,21 +16,22 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 @RequiredArgsConstructor
 public class TicketController implements TicketResourceApi {
-
-    final TicketMapper ticketMapper;
     final TicketService ticketService;
 
     @Override
     public ResponseEntity<TicketDto> createTicket(TicketDto ticketDto) {
-        Ticket ticket = ticketService.saveTicket(ticketMapper.toTicket(ticketDto));
-        if (ticket != null)
-            return new ResponseEntity<>(ticketMapper.toTicketDto(ticket), HttpStatus.CREATED);
-        return badRequest().build();
+        TicketDto createdTicket = ticketService.saveTicket(ticketDto);
+        return createdTicket == null ? badRequest().build() : new ResponseEntity<>(createdTicket, HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<TicketDto> editTicket(Long id, TicketDto ticketDto) throws Exception {
+        return null;
     }
 
     @Override
     public ResponseEntity<List<TicketDto>> getTickets() {
-        List<TicketDto> ticketDtos = ticketService.getTickets().stream().map(ticketMapper::toTicketDto).toList();
+        List<TicketDto> ticketDtos = ticketService.getTickets();
         return ticketDtos.isEmpty() ? noContent().build() : ok(ticketDtos);
     }
 }

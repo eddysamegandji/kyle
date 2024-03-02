@@ -95,7 +95,7 @@ public class JWTTokenUtil {
 				.setHeader((Map<String, Object>) header)
 				.setClaims(claims)
 				.setSubject(subject)
-				.setIssuer("kyleManagement")
+				.setIssuer("")
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + jwtTokenValidity * 2 * 1000))
 				.signWith(generateKey(), SignatureAlgorithm.HS512)

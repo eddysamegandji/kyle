@@ -26,7 +26,10 @@ public class TicketTypologyController implements TypologyResourceApi {
 
     @Override
     public ResponseEntity<List<TicketTypologyDto>> getTypologies() {
-        List<TicketTypologyDto> ticketTypologyDtos = ticketTypologyService.getTicketTypologies().stream().map(ticketTypologyMapper::toTicketTypologyDto).toList();
+        List<TicketTypologyDto> ticketTypologyDtos = ticketTypologyService.getTicketTypologies()
+                .stream()
+                .map(ticketTypologyMapper::toTicketTypologyDto)
+                .toList();
         return ticketTypologyDtos.isEmpty() ? noContent().build() : ok(ticketTypologyDtos);
     }
 }
