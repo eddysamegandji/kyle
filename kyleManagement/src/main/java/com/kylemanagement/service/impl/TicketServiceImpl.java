@@ -1,5 +1,7 @@
 package com.kylemanagement.service.impl;
 
+import com.api.model.TicketDto;
+import com.kylemanagement.mapper.TicketMapper;
 import com.kylemanagement.model.Ticket;
 import com.kylemanagement.model.User;
 import com.kylemanagement.repository.TicketRepository;
@@ -16,19 +18,23 @@ public class TicketServiceImpl implements TicketService {
 
     final UserDetailsService userDetailsService;
     final TicketRepository ticketRepository;
+    final TicketMapper ticketMapper;
 
     @Override
-    public Ticket saveTicket(Ticket ticket) {
+    public TicketDto saveTicket(TicketDto ticketDto) {
+        Ticket ticket = ticketMapper.toTicket(ticketDto);
         ticket.setCreationUser((User) userDetailsService.loadUserByUsername("admin"));
         ticket.setCreationDate(Instant.now());
         ticket.setLastModifiedDate(Instant.now());
         ticket.setModifiedUser((User) userDetailsService.loadUserByUsername("admin"));
-        ticketRepository.save(ticket);
-        return ticketRepository.save(ticket);
+        return ticketMapper.toTicketDto(ticketRepository.save(ticket));
     }
 
     @Override
-    public List<Ticket> getTickets() {
-        return ticketRepository.findAll();
+    public List<TicketDto> getTickets() {
+        return ticketRepository.findAll()
+                .stream()
+                .map(ticketMapper::toTicketDto)
+                .toList();
     }
 }

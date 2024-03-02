@@ -25,11 +25,22 @@ public class SkillController implements SkillResourceApi {
     }
 
     @Override
+    public ResponseEntity<List<SkillDto>> getSkill(Long id) {
+        return null;
+    }
+
+    @Override
     public ResponseEntity<List<SkillDto>> getSkills() {
         List<SkillDto> skillDtos = skillService.getSkills()
                 .stream()
                 .map(skillMapper::toSkillDto)
                 .toList();
+        return skillDtos.isEmpty() ? noContent().build() : ok(skillDtos);
+    }
+
+    @Override
+    public ResponseEntity<List<SkillDto>> getSkillsBySkillGroupId(Long skillGroupId) throws Exception {
+        List<SkillDto> skillDtos = skillService.getSkillsBySkillGroupId(skillGroupId);
         return skillDtos.isEmpty() ? noContent().build() : ok(skillDtos);
     }
 }

@@ -1,5 +1,7 @@
 package com.kylemanagement.service.impl;
 
+import com.api.model.SkillDto;
+import com.kylemanagement.mapper.SkillMapper;
 import com.kylemanagement.model.Skill;
 import com.kylemanagement.repository.SkillRepository;
 import com.kylemanagement.service.SkillService;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class SkillServiceImpl implements SkillService {
 
     final SkillRepository skillRepository;
+    final SkillMapper skillMapper;
 
     @Override
     public Skill saveSkill(Skill skill) {
@@ -22,4 +25,13 @@ public class SkillServiceImpl implements SkillService {
     public List<Skill> getSkills() {
         return skillRepository.findAll();
     }
+
+    @Override
+    public List<SkillDto> getSkillsBySkillGroupId(Long skillGroupId) {
+        return skillRepository.findBySkillGroupId(skillGroupId)
+                .stream()
+                .map(skillMapper::toSkillDto)
+                .toList();
+    }
 }
+

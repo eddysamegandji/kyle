@@ -1,9 +1,9 @@
 package com.kylemanagement.service;
 
-import com.kylemanagement.model.Ticket;
+import com.api.model.TicketDto;
 import java.util.List;
 
 public interface TicketService {
-    Ticket saveTicket(Ticket ticket);
-    List<Ticket> getTickets();
+    TicketDto saveTicket(TicketDto ticket);
+    List<TicketDto> getTickets();
 }

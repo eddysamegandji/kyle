@@ -15,6 +15,7 @@ tags:
   - name: "customer-resource"
   - name: "auth-resource"
   - name: "ticket-resource"
+  - name: "skillGroup-resource"
   - name: "typology-resource"
   - name: "skill-resource"
 paths:
@@ -190,6 +191,161 @@ paths:
         '404':
           $ref: '#/components/responses/404'
 
+  /tickets/{id}:
+    put:
+      summary: "Edit ticket"
+      tags: [ "ticket-resource" ]
+      operationId: editTicket
+      #      security:
+      #        - basicAuth: [ ]
+      parameters:
+        - name: id
+          description: "The id of the ticket."
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketDto'
+      responses:
+        '200':
+          description: "A detailed ticket"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketDto'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+
+  /skillGroups:
+    get:
+      summary: "Retrieve all the skillGroups"
+      tags: [ "skillGroup-resource" ]
+      operationId: getSkillGroups
+      responses:
+        '200':
+          description: "List retrieved successfully"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SkillGroupDto'
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+
+    post:
+      summary: "Create a new skillGroup"
+      tags: [ "skillGroup-resource" ]
+      operationId: createSkillGroup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SkillGroupDto'
+      responses:
+        '201':
+          description: "A detailed skillGroup"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillGroupDto'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+
+  /skillGroups/{id}:
+    get:
+      summary: "Retrieve details on skillGroup"
+      tags: [ "skillGroup-resource" ]
+      operationId: getSkillGroup
+      parameters:
+        - name: id
+          description: "skillGroup id."
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: "A detailed skillGroup"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillGroupDto'
+        '204':
+          $ref: '#/components/responses/204'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+
+    put:
+      summary: "Edit skillGroup"
+      tags: [ "skillGroup-resource" ]
+      operationId: editSkillGroup
+      parameters:
+        - name: id
+          description: "id of the skillGroup."
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SkillGroupDto'
+      responses:
+        '200':
+          description: "A detailed skillGroup"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillGroupDto'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+
+    delete:
+      summary: "Delete skillGroup"
+      tags: [ "skillGroup-resource" ]
+      operationId: deleteSkillGroup
+      parameters:
+        - name: id
+          description: "id of the skillGroup."
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: "SkillGroup was deleted"
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+
   /typology:
     get:
       summary: "Retrieve all the typologies"
@@ -279,6 +435,67 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SkillDto'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+
+  /skills/{id}:
+    get:
+      summary: "Retrieve skill by skill id"
+      tags: [ "skill-resource" ]
+      operationId: getSkill
+      #      security:
+      #        - basicAuth: []
+      parameters:
+        - name: id
+          description: "skill id."
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: "List retrieved successfully"
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SkillDto'
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+
+  /skills/skillGroup/{skillGroupId}:
+    get:
+      summary: "Retrieve skills matching skillGroup id"
+      tags: [ "skill-resource" ]
+      operationId: getSkillsBySkillGroupId
+      #      security:
+      #        - basicAuth: []
+      parameters:
+        - name: skillGroupId
+          description: "skillGroup id."
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: "List retrieved successfully"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SkillDto'
+        '204':
+          $ref: '#/components/responses/204'
         '401':
           $ref: '#/components/responses/401'
         '403':
@@ -541,6 +758,17 @@ components:
         active:
           type: boolean
 
+    SkillGroupDto:
+      type: object
+      properties:
+        skillGroupId:
+          type: integer
+          format: int64
+        name:
+          type: string
+        active:
+          type: boolean
+
     SkillDto:
       type: object
       properties:
@@ -549,6 +777,13 @@ components:
           format: int64
         name:
           type: string
+        skillGroup:
+          type: integer
+          format: int64
+        isDefaultSkill:
+          type: boolean
+        active:
+          type: boolean
         numberOfUsers:
           type: integer
         numberOfTickets:
