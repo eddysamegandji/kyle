@@ -2,7 +2,9 @@ package com.kylemanagement.controller;
 
 
 import com.api.handler.CustomerResourceApi;
-import com.api.model.CustomerApi;
+import com.api.model.CustomerDto;
+import com.kylemanagement.mapper.CustomerMapper;
+import com.kylemanagement.model.Customer;
 import com.kylemanagement.service.CustomerService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +19,11 @@ import static org.springframework.http.ResponseEntity.*;
 public class CustomerController implements CustomerResourceApi {
 
     private final CustomerService customerService;
+    final CustomerMapper customerMapper;
 
     @Override
-    public ResponseEntity<CustomerApi> createCustomer(CustomerApi customerApi) {
-        CustomerApi savedCustomer = customerService.saveCustomer(customerApi);
+    public ResponseEntity<CustomerDto> createCustomer(CustomerDto customerDto) {
+        CustomerDto savedCustomer = customerService.saveCustomer(customerDto);
         if (savedCustomer != null)
             return new ResponseEntity<>(savedCustomer, HttpStatus.CREATED);
         return badRequest().build();
@@ -36,21 +39,20 @@ public class CustomerController implements CustomerResourceApi {
     }
 
     @Override
-    public ResponseEntity<CustomerApi> editCustomer(Long id, CustomerApi customerApi) {
-        if (customerService.findCustomerById(id) != null)
-            return ok(customerService.saveCustomer(customerApi));
-        return notFound().build();
+    public ResponseEntity<CustomerDto> editCustomer(Long id, CustomerDto customerDto) {
+        Customer updatedCustomer = customerService.updateCustomer(id, customerDto);
+        return updatedCustomer == null ? notFound().build() : ok(customerMapper.toCustomerDto(updatedCustomer));
     }
 
     @Override
-    public ResponseEntity<CustomerApi> getCustomer(Long id) {
-        CustomerApi customer = customerService.findCustomerById(id);
+    public ResponseEntity<CustomerDto> getCustomer(Long id) {
+        CustomerDto customer = customerService.findCustomerById(id);
         return customer == null ? notFound().build() : ok(customer);
     }
 
     @Override
-    public ResponseEntity<List<CustomerApi>> getCustomers() {
-        List<CustomerApi> result = customerService.getCustomers();
+    public ResponseEntity<List<CustomerDto>> getCustomers() {
+        List<CustomerDto> result = customerService.getCustomers();
         return result.isEmpty() ? noContent().build() : ok(result);
     }
 }

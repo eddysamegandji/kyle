@@ -14,6 +14,10 @@ servers:
 tags:
   - name: "customer-resource"
   - name: "auth-resource"
+  - name: "ticket-resource"
+  - name: "skillGroup-resource"
+  - name: "typology-resource"
+  - name: "skill-resource"
 paths:
   /customers:
     get:
@@ -30,7 +34,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CustomerApi'
+                  $ref: '#/components/schemas/CustomerDto'
         '204':
           $ref: '#/components/responses/204'
         '401':
@@ -49,14 +53,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CustomerApi'
+              $ref: '#/components/schemas/CustomerDto'
       responses:
         '201':
           description: "A detailed customer"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerApi'
+                $ref: '#/components/schemas/CustomerDto'
         '401':
           $ref: '#/components/responses/401'
         '403':
@@ -81,7 +85,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerApi'
+                $ref: '#/components/schemas/CustomerDto'
         '204':
           $ref: '#/components/responses/204'
         '403':
@@ -108,14 +112,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CustomerApi'
+              $ref: '#/components/schemas/CustomerDto'
       responses:
         '200':
           description: "A detailed customer"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerApi'
+                $ref: '#/components/schemas/CustomerDto'
         '401':
           $ref: '#/components/responses/401'
         '403':
@@ -143,6 +147,360 @@ paths:
         '404':
           $ref: '#/components/responses/404'
 
+  /tickets:
+    get:
+      summary: "Get list of tickets"
+      tags: ["ticket-resource"]
+      operationId: getTickets
+      responses:
+        '200':
+          description: "List retrieved successfully"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TicketDto'
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+    post:
+      summary: "Create a ticket"
+      tags: ["ticket-resource"]
+      operationId: createTicket
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketDto'
+      responses:
+        '201':
+          description: "A detailed ticket"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketDto'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+
+  /tickets/{id}:
+    put:
+      summary: "Edit ticket"
+      tags: [ "ticket-resource" ]
+      operationId: editTicket
+      #      security:
+      #        - basicAuth: [ ]
+      parameters:
+        - name: id
+          description: "The id of the ticket."
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketDto'
+      responses:
+        '200':
+          description: "A detailed ticket"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketDto'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+
+  /skillGroups:
+    get:
+      summary: "Retrieve all the skillGroups"
+      tags: [ "skillGroup-resource" ]
+      operationId: getSkillGroups
+      responses:
+        '200':
+          description: "List retrieved successfully"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SkillGroupDto'
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+
+    post:
+      summary: "Create a new skillGroup"
+      tags: [ "skillGroup-resource" ]
+      operationId: createSkillGroup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SkillGroupDto'
+      responses:
+        '201':
+          description: "A detailed skillGroup"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillGroupDto'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+
+  /skillGroups/{id}:
+    get:
+      summary: "Retrieve details on skillGroup"
+      tags: [ "skillGroup-resource" ]
+      operationId: getSkillGroup
+      parameters:
+        - name: id
+          description: "skillGroup id."
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: "A detailed skillGroup"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillGroupDto'
+        '204':
+          $ref: '#/components/responses/204'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+
+    put:
+      summary: "Edit skillGroup"
+      tags: [ "skillGroup-resource" ]
+      operationId: editSkillGroup
+      parameters:
+        - name: id
+          description: "id of the skillGroup."
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SkillGroupDto'
+      responses:
+        '200':
+          description: "A detailed skillGroup"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillGroupDto'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+
+    delete:
+      summary: "Delete skillGroup"
+      tags: [ "skillGroup-resource" ]
+      operationId: deleteSkillGroup
+      parameters:
+        - name: id
+          description: "id of the skillGroup."
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: "SkillGroup was deleted"
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+
+  /typology:
+    get:
+      summary: "Retrieve all the typologies"
+      tags: [ "typology-resource" ]
+      operationId: getTypologies
+      #      security:
+      #        - basicAuth: []
+      responses:
+        '200':
+          description: "List retrieved successfully"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TicketTypologyDto'
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+
+    post:
+      summary: "Create a new typology"
+      tags: [ "typology-resource" ]
+      operationId: createTypology
+      #      security:
+      #        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketTypologyDto'
+      responses:
+        '201':
+          description: "A detailed typology"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketTypologyDto'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+
+  /skills:
+    get:
+      summary: "Retrieve all the skills"
+      tags: [ "skill-resource" ]
+      operationId: getSkills
+      #      security:
+      #        - basicAuth: []
+      responses:
+        '200':
+          description: "List retrieved successfully"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SkillDto'
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+
+    post:
+      summary: "Create a new skill"
+      tags: [ "skill-resource" ]
+      operationId: createSkill
+      #      security:
+      #        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SkillDto'
+      responses:
+        '201':
+          description: "A detailed skill"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillDto'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+
+  /skills/{id}:
+    get:
+      summary: "Retrieve skill by skill id"
+      tags: [ "skill-resource" ]
+      operationId: getSkill
+      #      security:
+      #        - basicAuth: []
+      parameters:
+        - name: id
+          description: "skill id."
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: "List retrieved successfully"
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SkillDto'
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+
+  /skills/skillGroup/{skillGroupId}:
+    get:
+      summary: "Retrieve skills matching skillGroup id"
+      tags: [ "skill-resource" ]
+      operationId: getSkillsBySkillGroupId
+      #      security:
+      #        - basicAuth: []
+      parameters:
+        - name: skillGroupId
+          description: "skillGroup id."
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: "List retrieved successfully"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SkillDto'
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+
   /login:
     post:
       summary: "Login"
@@ -153,14 +511,14 @@ paths:
         content:
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/LoginApi'
+              $ref: '#/components/schemas/LoginDto'
       responses:
         '200':
           description: "Login successful"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LoginResponseApi'
+                $ref: '#/components/schemas/LoginResponseDto'
         '401':
           $ref: '#/components/responses/401'
         '403':
@@ -208,10 +566,10 @@ components:
         message:
           type: string
 
-    UserApi:
+    UserDto:
       type: object
       properties:
-        id:
+        userId:
           type: integer
         login:
           type: string
@@ -250,7 +608,7 @@ components:
 #            id:
 #              type: integer
 
-    CustomerApi:
+    CustomerDto:
       type: object
       properties:
         customerId:
@@ -300,7 +658,7 @@ components:
         vip:
           type: boolean
 
-    LoginApi:
+    LoginDto:
       type: object
       properties:
         username:
@@ -308,7 +666,7 @@ components:
         password:
           type: string
 
-    LoginResponseApi:
+    LoginResponseDto:
       type: object
       properties:
         isAuthenticated:
@@ -323,3 +681,110 @@ components:
         roles:
           type: string
 
+    TicketDto:
+      type: object
+      properties:
+        ticketId:
+          type: integer
+          format: int64
+        creationDate:
+          type: string
+          format: date-time
+        creationSummary:
+          type: string
+        closingDate:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+            - TODO
+            - RESERVED
+            - INPROGRESS
+            - PENDING
+            - TOBEVALIDATED
+            - COMPLETED
+            - CANCELED
+            - START
+        typology:
+          type: integer
+          format: int64
+        initialSkill:
+          type: integer
+          format: int64
+        customer:
+          type: integer
+          format: int64
+        lastModifiedDate:
+          type: string
+          format: date-time
+        lastTicketActionComment:
+          type: string
+        priority:
+          type: string
+          enum:
+            - VERYLOW
+            - LOW
+            - MEDIUM
+            - HIGH
+            - VERYHIGH
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+
+    DelayHistoryDto:
+      type: object
+      properties:
+        delayHistoryId:
+          type: integer
+          format: int64
+        delayDate:
+          type: string
+          format: date-time
+        delayComment:
+          type: string
+
+    TicketTypologyDto:
+      type: object
+      properties:
+        ticketTypologyId:
+          type: integer
+          format: int64
+        name:
+          type: string
+        active:
+          type: boolean
+
+    SkillGroupDto:
+      type: object
+      properties:
+        skillGroupId:
+          type: integer
+          format: int64
+        name:
+          type: string
+        active:
+          type: boolean
+
+    SkillDto:
+      type: object
+      properties:
+        skillId:
+          type: integer
+          format: int64
+        name:
+          type: string
+        skillGroup:
+          type: integer
+          format: int64
+        isDefaultSkill:
+          type: boolean
+        active:
+          type: boolean
+        numberOfUsers:
+          type: integer
+        numberOfTickets:
+          type: integer

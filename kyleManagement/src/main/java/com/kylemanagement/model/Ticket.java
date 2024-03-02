@@ -1,11 +1,15 @@
 package com.kylemanagement.model;
 
+import com.kylemanagement.enums.ticket.TicketPriorityEnum;
 import com.kylemanagement.enums.ticket.TicketStatusEnum;
 import jakarta.persistence.*;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import lombok.Data;
 
-@Entity
+@Entity(name = "ticket")
 @Data
 public class Ticket {
 
@@ -14,19 +18,19 @@ public class Ticket {
     private Long ticketId;
     private Instant creationDate;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "creationUserId", referencedColumnName = "userId")
+    @JoinColumn(name = "creationUserId")
     private User creationUser;
     private String creationSummary;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assigneeUserId")
     private User assigneeUser;
     private Instant closingDate;
-    @Column(name = "ticketStatusId")
+    @Column(name = "statusId")
     @Enumerated(EnumType.STRING)
-    private TicketStatusEnum ticketStatus;
+    private TicketStatusEnum status;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ticketTypologyId")
-    private TicketTypology ticketTypology;
+    @JoinColumn(name = "typologyId")
+    private TicketTypology typology;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "initialSkillId")
     private Skill initialSkill;
@@ -34,19 +38,29 @@ public class Ticket {
     @JoinColumn(name = "currentSkillId")
     private Skill currentSkill;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ticketUserGroupId")
-    private UserGroup ticketUserGroup;
+    @JoinColumn(name = "userGroupId")
+    private UserGroup userGroup;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customerId")
     private Customer customer;
     private Instant lastModifiedDate;
-    private Instant initialDueDate;
-    private Instant secondDueDate;
-    private Instant thirdDueDate;
+    private Instant startDate;
+    private Instant endDate;
+//    @OneToMany
+//    @JoinTable(name = "delayHistoryTicket", joinColumns = {
+//            @JoinColumn(name = "ticketId")}, inverseJoinColumns = {@JoinColumn(name = "delayHistoryId")})
+//    private List<DelayHistory> delayHistory;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "modifiedUserId")
-    private User modifiedUserId;
-
-
+    private User modifiedUser;
+    private String lastTicketActionComment;
+    @Column(name = "priority")
+    @Enumerated(EnumType.STRING)
+    private TicketPriorityEnum priority;
+    private Integer flagId;
+    @OneToMany(targetEntity = Document.class, fetch = FetchType.LAZY)
+    @JoinTable(name = "documentRelation", joinColumns = {
+            @JoinColumn(name = "ticketId")}, inverseJoinColumns = {@JoinColumn(name = "documentId")})
+    private Set<Document> documents = new HashSet<>();
 
 }

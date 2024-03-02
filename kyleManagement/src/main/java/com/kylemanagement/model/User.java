@@ -33,8 +33,8 @@ public class User implements UserDetails {
     private String phone;
     private String rights;
     private String locale;
-    private LocalDateTime firstConnectionDate;
-    private LocalDateTime lastConnectionDate;
+    private Instant firstConnectionDate;
+    private Instant lastConnectionDate;
     private Instant creationDate;
     private Integer creationUserId;
     private Instant deleteDate;

@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1.0
+      id: 1.1
       author: Eddy
       changes:
         - insert:
@@ -11,7 +11,7 @@ databaseChangeLog:
                   value: null
               - column:
                   name: code
-                  value: "ASPECT_REGEX"
+                  value: "ASPECT_REGEXX"
               - column:
                   name: value
                   value: "password.*"
@@ -23,7 +23,7 @@ databaseChangeLog:
                   value: null
               - column:
                   name: code
-                  value: "MYSQL_CRYPTO_KEY"
+                  value: "MYSQL_CRYPTO_KEYY"
               - column:
                   name: value
                   value: "o/VgV33FcjxFZm/acfDrGM63N4nrOqZl"

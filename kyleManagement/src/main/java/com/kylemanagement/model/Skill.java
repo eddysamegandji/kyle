@@ -7,6 +7,8 @@ import lombok.Data;
 
 @Entity
 @Data
+@Table(uniqueConstraints = { @UniqueConstraint(name = "UniqueNameAndSkillGroup",
+        columnNames = { "name", "skillGroupId" }) })
 public class Skill {
 
     @Id
@@ -16,12 +18,15 @@ public class Skill {
     private Instant creationDate;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "creationUserId")
-    private User creationUserId;
+    private User creationUser;
+    @ManyToOne
+    @JoinColumn(name = "skillGroupId")
+    private SkillGroup skillGroup;
+    private Boolean isDefaultSkill;
     @Transient
     private Integer numberOfUsers;
     @Transient
     private Integer numberOfTickets;
-    private boolean active = true;
-
+    private Boolean active = true;
 
 }

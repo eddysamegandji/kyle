@@ -1,6 +1,6 @@
 package com.kylemanagement.controller;
 
-import com.api.model.CustomerApi;
+import com.api.model.CustomerDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kylemanagement.IntegrationTest;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,11 +34,11 @@ class CustomerControllerTest extends IntegrationTest {
 //    @WithMockUser("/admin")
     void createCustomer() throws Exception {
 
-        CustomerApi customerApi = new CustomerApi();
-        customerApi.setFirstName("testname");
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setFirstName("testname");
 
         given().
-            body(customerApi).
+            body(customerDto).
             contentType("application/json").
         when().
             post(baseUrl+"/customers").

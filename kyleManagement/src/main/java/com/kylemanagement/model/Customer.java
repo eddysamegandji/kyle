@@ -17,7 +17,7 @@ public class Customer {
     private String firstName;
     @Size(max = 100)
     private String lastName;
-    @Formula(value = "concat(coalesce(first_name, ''), ' ', coalesce(last_name, ''))")
+    @Formula(value = "concat(coalesce(title, ''), ' ', coalesce(first_name, ''), ' ', coalesce(last_name, ''))")
     private String fullName;
     @Size(max = 100)
     private String address1;
@@ -36,7 +36,7 @@ public class Customer {
     @Size(max = 100)
     private String birthName;
     private Instant birthDate;
-    @Size(max = 100)
+    @Size(max = 5)
     private String title;
     private String contactSearch; // updated by sql trigger
     @Size(max = 100)
@@ -65,11 +65,17 @@ public class Customer {
     private String emailName;
     private String comments;
     private Instant creationDate;
-    private Long creationUserId;
+    @ManyToOne
+    @JoinColumn(name = "creationUserId")
+    private User creationUser;
     private Instant lastModifiedDate;
-    private Long updateUserId;
+    @ManyToOne
+    @JoinColumn(name = "updateUserId")
+    private User updateUser;
     private Instant deleteDate;
-    private Long deleteUserId;
+    @ManyToOne
+    @JoinColumn(name = "deleteUserId")
+    private User deleteUser;
     private Boolean vip;
 
 }
