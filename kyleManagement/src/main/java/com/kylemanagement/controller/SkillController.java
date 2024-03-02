@@ -17,8 +17,6 @@ import static org.springframework.http.ResponseEntity.ok;
 public class SkillController implements SkillResourceApi {
 
     final SkillService skillService;
-    final SkillMapper skillMapper;
-
     @Override
     public ResponseEntity<SkillDto> createSkill(SkillDto skillDto) {
         return null;
@@ -31,15 +29,12 @@ public class SkillController implements SkillResourceApi {
 
     @Override
     public ResponseEntity<List<SkillDto>> getSkills() {
-        List<SkillDto> skillDtos = skillService.getSkills()
-                .stream()
-                .map(skillMapper::toSkillDto)
-                .toList();
+        List<SkillDto> skillDtos = skillService.getSkills();
         return skillDtos.isEmpty() ? noContent().build() : ok(skillDtos);
     }
 
     @Override
-    public ResponseEntity<List<SkillDto>> getSkillsBySkillGroupId(Long skillGroupId) throws Exception {
+    public ResponseEntity<List<SkillDto>> getSkillsBySkillGroupId(Long skillGroupId) {
         List<SkillDto> skillDtos = skillService.getSkillsBySkillGroupId(skillGroupId);
         return skillDtos.isEmpty() ? noContent().build() : ok(skillDtos);
     }

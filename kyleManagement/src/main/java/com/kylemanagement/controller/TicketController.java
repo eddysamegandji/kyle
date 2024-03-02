@@ -20,12 +20,12 @@ public class TicketController implements TicketResourceApi {
 
     @Override
     public ResponseEntity<TicketDto> createTicket(TicketDto ticketDto) {
-        TicketDto createdTicket = ticketService.saveTicket(ticketDto);
+        TicketDto createdTicket = ticketService.createTicket(ticketDto);
         return createdTicket == null ? badRequest().build() : new ResponseEntity<>(createdTicket, HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<TicketDto> editTicket(Long id, TicketDto ticketDto) throws Exception {
+    public ResponseEntity<TicketDto> editTicket(Long id, TicketDto ticketDto) {
         return null;
     }
 

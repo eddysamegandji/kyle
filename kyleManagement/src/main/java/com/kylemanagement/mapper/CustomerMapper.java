@@ -2,18 +2,18 @@ package com.kylemanagement.mapper;
 
 import com.api.model.CustomerDto;
 import com.kylemanagement.model.Customer;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
-@Mapper(componentModel = SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = SPRING)
 public interface CustomerMapper {
+
     CustomerDto toCustomerDto(Customer customer);
 
     @InheritInverseConfiguration
-    Customer toCustomer(CustomerDto customerApi);
+    @Mapping(target = "customerId", ignore = true)
+    Customer toCustomer(CustomerDto customerDto, @MappingTarget Customer customer);
 
 }

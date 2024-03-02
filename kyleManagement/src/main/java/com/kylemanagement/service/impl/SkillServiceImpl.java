@@ -17,13 +17,16 @@ public class SkillServiceImpl implements SkillService {
     final SkillMapper skillMapper;
 
     @Override
-    public Skill saveSkill(Skill skill) {
+    public SkillDto createSkill(SkillDto skillDto) {
         return null;
     }
 
     @Override
-    public List<Skill> getSkills() {
-        return skillRepository.findAll();
+    public List<SkillDto> getSkills() {
+        return skillRepository.findAll()
+                .stream()
+                .map(skillMapper::toSkillDto)
+                .toList();
     }
 
     @Override

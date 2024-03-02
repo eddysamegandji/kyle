@@ -21,8 +21,8 @@ public class TicketServiceImpl implements TicketService {
     final TicketMapper ticketMapper;
 
     @Override
-    public TicketDto saveTicket(TicketDto ticketDto) {
-        Ticket ticket = ticketMapper.toTicket(ticketDto);
+    public TicketDto createTicket(TicketDto ticketDto) {
+        Ticket ticket = ticketMapper.toTicket(ticketDto, new Ticket());
         ticket.setCreationUser((User) userDetailsService.loadUserByUsername("admin"));
         ticket.setCreationDate(Instant.now());
         ticket.setLastModifiedDate(Instant.now());

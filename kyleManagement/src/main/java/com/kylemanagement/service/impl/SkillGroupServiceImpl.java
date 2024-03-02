@@ -23,7 +23,7 @@ public class SkillGroupServiceImpl implements SkillGroupService {
 
     @Override
     public SkillGroupDto createSkillGroup(SkillGroupDto skillGroupDto) {
-        SkillGroup skillGroup = skillGroupMapper.toSkillGroup(skillGroupDto);
+        SkillGroup skillGroup = skillGroupMapper.toSkillGroup(skillGroupDto, new SkillGroup());
         skillGroup.setCreationUser((User) userDetailsService.loadUserByUsername("admin"));
         skillGroup.setCreationDate(Instant.now());
         skillGroup.setLastModifiedDate(Instant.now());
@@ -35,9 +35,7 @@ public class SkillGroupServiceImpl implements SkillGroupService {
     public SkillGroupDto updateSkillGroup(Long skillGroupId, SkillGroupDto skillGroupDto) {
         Optional<SkillGroup> existingSkillGroup = skillGroupRepository.findById(skillGroupId);
         if (existingSkillGroup.isPresent()) {
-            SkillGroup toUpdate = existingSkillGroup.get();
-            toUpdate.setName(skillGroupDto.getName());
-            toUpdate.setActive(skillGroupDto.getActive());
+            SkillGroup toUpdate = skillGroupMapper.toSkillGroup(skillGroupDto, existingSkillGroup.get());
             toUpdate.setLastModifiedDate(Instant.now());
             toUpdate.setLastModifiedUser((User) userDetailsService.loadUserByUsername("admin"));
             return skillGroupMapper.toSkillGroupDto(skillGroupRepository.save(toUpdate));
