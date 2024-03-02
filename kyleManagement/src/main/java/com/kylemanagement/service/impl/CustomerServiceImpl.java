@@ -24,8 +24,8 @@ public class CustomerServiceImpl implements CustomerService {
     private final SecurityContextService securityContextService;
 
     @Override
-    public CustomerDto saveCustomer(CustomerDto customerDto) {
-        Customer customer = customerMapper.toCustomer(customerDto);
+    public CustomerDto createCustomer(CustomerDto customerDto) {
+        Customer customer = customerMapper.toCustomer(customerDto, new Customer());
 //        User loggedUser = securityContextService.getLoggedUser();
         customer.setCreationUser((User) userDetailsService.loadUserByUsername("admin"));
         customer.setCreationDate(Instant.now());
@@ -35,33 +35,13 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer updateCustomer(Long customerId, CustomerDto customerDto) {
+    public CustomerDto updateCustomer(Long customerId, CustomerDto customerDto) {
         Optional<Customer> existingCustomer = customerRepository.findById(customerId);
         if (existingCustomer.isPresent()) {
-            Customer toUpdate = existingCustomer.get();
-            toUpdate.setTitle(customerDto.getTitle());
-            toUpdate.setFirstName(customerDto.getFirstName());
-            toUpdate.setLastName(customerDto.getLastName());
-            toUpdate.setBirthDate(customerDto.getBirthDate());
-            toUpdate.setBirthCity(customerDto.getBirthCity());
-            toUpdate.setBirthDepartment(customerDto.getBirthDepartment());
-            toUpdate.setAddress1(customerDto.getAddress1());
-            toUpdate.setAddress2(customerDto.getAddress2());
-            toUpdate.setZipCode(customerDto.getZipCode());
-            toUpdate.setCity(customerDto.getCity());
-            toUpdate.setCountry(customerDto.getCountry());
-            toUpdate.setMobilePhone(customerDto.getMobilePhone());
-            toUpdate.setEmailAddress(customerDto.getEmailAddress());
-            toUpdate.setEmailAddress2(customerDto.getEmailAddress2());
-            toUpdate.setCompanyName(customerDto.getCompanyName());
-            toUpdate.setCompanyPosition(customerDto.getCompanyPosition());
-            toUpdate.setWorkPhone(customerDto.getWorkPhone());
-            toUpdate.setKbis(customerDto.getKbis());
-            toUpdate.setFax(customerDto.getFax());
-            toUpdate.setVip(customerDto.getVip());
-            toUpdate.setUpdateUser((User) userDetailsService.loadUserByUsername("admin"));
+            Customer toUpdate = customerMapper.toCustomer(customerDto, existingCustomer.get());
             toUpdate.setLastModifiedDate(Instant.now());
-            return customerRepository.save(toUpdate);
+            toUpdate.setUpdateUser((User) userDetailsService.loadUserByUsername("admin"));
+            return customerMapper.toCustomerDto(customerRepository.save(toUpdate));
         }
         return null;
     }

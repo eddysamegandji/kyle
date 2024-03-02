@@ -2,9 +2,7 @@ package com.kylemanagement.mapper;
 
 import com.api.model.TicketTypologyDto;
 import com.kylemanagement.model.TicketTypology;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
@@ -14,5 +12,6 @@ public interface TicketTypologyMapper {
     TicketTypologyDto toTicketTypologyDto(TicketTypology ticketTypology);
 
     @InheritInverseConfiguration
-    TicketTypology toTicketTypology(TicketTypologyDto ticketTypologyDto);
+    @Mapping(target = "ticketTypologyId", ignore = true)
+    TicketTypology toTicketTypology(TicketTypologyDto ticketTypologyDto, @MappingTarget TicketTypology ticketTypology);
 }

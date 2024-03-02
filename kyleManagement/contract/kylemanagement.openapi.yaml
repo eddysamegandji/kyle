@@ -592,12 +592,10 @@ components:
         creationDate:
           type: string
           format: date-time
-        creationUserId:
-          type: integer
         deleteDate:
           type: string
           format: date-time
-        deleteUserId:
+        deleteUser:
           type: integer
         active:
           type: boolean
@@ -692,6 +690,12 @@ components:
           format: date-time
         creationSummary:
           type: string
+        creationUser:
+          $ref: '#/components/schemas/UserDto'
+        assigneeUser:
+          $ref: '#/components/schemas/UserDto'
+        modifiedUser:
+          $ref: '#/components/schemas/UserDto'
         closingDate:
           type: string
           format: date-time
@@ -707,14 +711,13 @@ components:
             - CANCELED
             - START
         typology:
-          type: integer
-          format: int64
+          $ref: '#/components/schemas/TicketTypologyDto'
         initialSkill:
-          type: integer
-          format: int64
+          $ref: '#/components/schemas/SkillDto'
+        currentSkill:
+          $ref: '#/components/schemas/SkillDto'
         customer:
-          type: integer
-          format: int64
+          $ref: '#/components/schemas/CustomerDto'
         lastModifiedDate:
           type: string
           format: date-time
@@ -778,8 +781,7 @@ components:
         name:
           type: string
         skillGroup:
-          type: integer
-          format: int64
+          $ref: '#/components/schemas/SkillGroupDto'
         isDefaultSkill:
           type: boolean
         active:

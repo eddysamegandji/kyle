@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface TicketTypologyService {
 
-    TicketTypology saveTicketTypology(TicketTypology ticketTypology);
-    TicketTypology findByTicketTypologyId(Long id);
-    List<TicketTypology> getTicketTypologies();
+    TicketTypologyDto createTicketTypology(TicketTypologyDto ticketTypologyDto);
+    TicketTypologyDto findByTicketTypologyId(Long id);
+    List<TicketTypologyDto> getTicketTypologies();
 
 }

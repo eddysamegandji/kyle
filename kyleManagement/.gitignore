@@ -4,8 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 /logs/
-kyleManagement/src/main/resources/application-local.yml
-kyleManagement/.gitignore
+application-local.yml
+.gitignore
 
 ### STS ###
 .apt_generated
